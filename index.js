@@ -6,7 +6,7 @@ const fs = require('fs');
 const { Client, MessageEmbed, MessageAttachment, displayAvatarURL, Collection, Intents, MessageActionRow, MessageSelectMenu } = require(`discord.js`); // discord.js를 불러옴
 const Discord = require('discord.js')
 const client = new Client({ intents: [Intents.FLAGS.GUILDS] }); // 새로운 디스코드 클라이언트를 만듬
-const { prefix, token } = require('./config.json');
+// const { prefix, token } = require('./config.json');
 
 client.commands = new Collection();
 const commandFiles = fs.readdirSync('./commands').filter(file => file.endsWith('.js'));
