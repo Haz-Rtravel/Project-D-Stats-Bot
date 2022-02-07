@@ -33,7 +33,7 @@ for (const file of commandFiles) {
 
 client.once('ready', () => {
     console.log(`Logged in as ${client.user.tag}!`);
-    client.user.setActivity('기능 테스트', { type: 'PLAYING' })
+    client.user.setActivity('/find (닉네임) 으로 검색', { type: 'PLAYING' })
 
     // firebase.initializeApp(firebaseConfig);
 
@@ -61,4 +61,4 @@ client.on('interactionCreate', async interaction => {
 });
 
 // 디스코드 토큰으로 디스코드에 로그인
-client.login(process.env.TOKEN);
+client.login(proecess.env.token);
