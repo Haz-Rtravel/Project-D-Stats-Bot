@@ -61,4 +61,4 @@ client.on('interactionCreate', async interaction => {
 });
 
 // 디스코드 토큰으로 디스코드에 로그인
-client.login(proecess.env.TOKEN);
+client.login(process.env.TOKEN);
