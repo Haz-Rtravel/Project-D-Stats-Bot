@@ -218,7 +218,14 @@ module.exports = {
 
                     
                 } else {
-                    
+
+                    const Embed_Error = new MessageEmbed()
+                        .setColor('#ED4313')
+                        .setTitle(SearchName + ` 님의 요원 리포트를 찾지 못하였습니다.`)
+                        // .setURL(`https://barracks.d.nexon.com/` + USERINFO.usn)
+                        .setDescription(`해당되는 닉네임을 찾지 못했거나, 사용할 수 없는 닉네임을 검색하셨나요?`)
+
+                    interaction.reply({embeds: [ Embed_Error]})
                 }
 
                 
@@ -233,7 +240,7 @@ module.exports = {
 
             
 
-            console.log(result_array)
+            // console.log(result_array)
 
             
             // const embed = new MessageEmbed()
@@ -250,7 +257,15 @@ module.exports = {
         
         catch(err) {
             console.log(err)
-            await interaction.reply(`오류가 발생했습니다. 입력값을 검토하거나, 관리자를 호출해주세요. / 입력값: ${SearchName}`)
+
+            const Embed_Error = new MessageEmbed()
+                .setColor('#ED4313')
+                .setTitle(SearchName + ` 님의 요원 리포트를 찾지 못하였습니다.`)
+                // .setURL(`https://barracks.d.nexon.com/` + USERINFO.usn)
+                .setDescription(`해당되는 닉네임을 찾지 못했거나, 사용할 수 없는 닉네임을 검색하셨나요?`)
+                    
+            await interaction.reply({embeds: [ Embed_Error]})
+            // await interaction.reply(`오류가 발생했습니다. 입력값을 검토하거나, 관리자를 호출해주세요. / 입력값: ${SearchName}`)
         }
         
 		// await interaction.reply(`입력값: ${dice}, ${chance} / 결과값: ${result_array}`)
