@@ -54,7 +54,7 @@ async function GetUserSeasonRecord(userdata) {
         var usercode = userdata[0]
         var userprofile = userdata[1]
 
-        var search_url = `https://barracks.d.nexon.com/api/Record/GetSeasonRecord/` + usercode
+        var search_url = `https://barracks.d.nexon.com/api/Record/GetSeasonRecord/1/` + usercode
 
         const postResponse = await fetch(search_url, {
             method: "POST",
@@ -159,7 +159,7 @@ module.exports = {
                         .setTitle(USERINFO.nickname + `님의 요원 리포트`)
                         .setThumbnail(PROFILE_IMAGE)
                         .setURL(`https://barracks.d.nexon.com/` + USERINFO.usn)
-                        .setDescription(`상단을 클릭시 요원 리포트 링크로 이동됩니다.`)
+                        .setDescription(`상단을 클릭시 요원 리포트 링크로 이동됩니다. \n 하단의 정보는 현 시즌 기준입니다.`)
                         .addFields(
                             // { name: 'Regular field title', value: 'Some value here' },
                             // { name: '\u200B', value: '\u200B' },
@@ -181,7 +181,7 @@ module.exports = {
 
                     const Embed_Report_2 = new MessageEmbed()
                         .setColor('#ED4313')
-                        .setTitle(USERINFO.nickname + `님의 전투 기록`)
+                        .setTitle(USERINFO.nickname + `님의 알파시즌 전투 기록`)
                         .setURL(`https://barracks.d.nexon.com/` + USERINFO.usn + `/combat`)
                         .setThumbnail(PROFILE_IMAGE)
                         .addFields(
@@ -221,9 +221,9 @@ module.exports = {
 
                     const Embed_Error = new MessageEmbed()
                         .setColor('#ED4313')
-                        .setTitle(SearchName + ` 님의 요원 리포트를 찾지 못하였습니다.`)
+                        .setTitle(SearchName + ` 님의 요원 리포트를 찾을 수 없었습니다.`)
                         // .setURL(`https://barracks.d.nexon.com/` + USERINFO.usn)
-                        .setDescription(`해당되는 닉네임을 찾지 못했거나, 사용할 수 없는 닉네임을 검색하셨나요?`)
+                        .setDescription(`검색을 요청한 닉네임을 찾는데에 실패했습니다.`)
 
                     interaction.reply({embeds: [ Embed_Error]})
                 }
