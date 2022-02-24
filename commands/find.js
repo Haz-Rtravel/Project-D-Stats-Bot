@@ -46,15 +46,27 @@ async function GetUserData(usercode) {
     // console.log(usercode)
 }
 
-async function GetUserSeasonRecord(userdata) {
+async function GetUserSeasonRecord(userdata, season) {
 
     console.log("GETUSERSEASONRECORD =======================")
     if (userdata != 0) {
 
         var usercode = userdata[0]
         var userprofile = userdata[1]
+        var seasoncode = 1
 
-        var search_url = `https://barracks.d.nexon.com/api/Record/GetSeasonRecord/1/` + usercode
+        if (season != null) {
+            switch (season) {
+                case "ALPHA":
+                    seasoncode = 1
+                    break;
+                case "202202":
+                    seasoncode = 202202
+                    break;
+            }
+        }
+
+        var search_url = `https://barracks.d.nexon.com/api/Record/GetSeasonRecord/` + seasoncode + `/` + usercode
 
         const postResponse = await fetch(search_url, {
             method: "POST",
@@ -76,11 +88,11 @@ async function GetUserSeasonRecord(userdata) {
     // console.log(usercode)
 }
 
-async function ResultReport(username) {
+async function ResultReport(username, SEASON) {
     console.log("RESULTREPORT =======================")
     var result = await findID(username)
     .then((usercode) => GetUserData(usercode)
-        .then(data => GetUserSeasonRecord(data).then(
+        .then(data => GetUserSeasonRecord(data, SEASON).then(
             TotalData => {return TotalData}
         )))
     return result
@@ -94,10 +106,19 @@ module.exports = {
         .addStringOption(option =>
             option.setName('유저명')
                 .setDescription('검색하고자 하는 유저의 닉네임을 입력합니다. 일부만 입력해도 됩니다.')
-                .setRequired(true)),
+                .setRequired(true))
+        .addStringOption(option =>
+            option.setName('시즌')
+                .setDescription('검색하려는 전적의 시즌을 입력합니다. 미입력시 자동으로 알파 시즌을 검색합니다.')
+                .addChoice('2021년 알파', 'ALPHA')
+                .addChoice('2022년 2월 ~ 4월', '202202')),
 	async execute(interaction) {
         const SearchName = interaction.options.getString('유저명');
+        const SeasonName = interaction.options.getString('시즌');
+        console.log("검색 요청========================")
         console.log(SearchName)
+        console.log(SeasonName)
+        console.log("검색 요청========================")
 
         
         
@@ -111,7 +132,7 @@ module.exports = {
         try {
 
             // var UserCode = await findID(SearchName)
-            ResultReport(SearchName).then(value => {
+            ResultReport(SearchName, SeasonName).then(value => {
                 console.log("RESULT ==========================")
                 console.log(value)
 
@@ -179,9 +200,21 @@ module.exports = {
                             { name: '플레이 시간', value: PLAYTIME, inline: true },
                         )
 
+                    var SeasonFullName = `2021년 알파 시즌`
+                    if (SeasonName != null) {
+                        switch (SeasonName) {
+                            case "ALPHA":
+                                SeasonFullName = `2021년 알파 시즌`
+                                break;
+                            case "202202":
+                                SeasonFullName = `2022년 2월 ~ 4월 시즌`
+                                break;
+                        }
+                    }
+
                     const Embed_Report_2 = new MessageEmbed()
                         .setColor('#ED4313')
-                        .setTitle(USERINFO.nickname + `님의 알파시즌 전투 기록`)
+                        .setTitle(USERINFO.nickname + `님의 ` + SeasonFullName + ` 전투 기록`)
                         .setURL(`https://barracks.d.nexon.com/` + USERINFO.usn + `/combat`)
                         .setThumbnail(PROFILE_IMAGE)
                         .addFields(
