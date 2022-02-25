@@ -53,7 +53,7 @@ async function GetUserSeasonRecord(userdata, season) {
 
         var usercode = userdata[0]
         var userprofile = userdata[1]
-        var seasoncode = 1
+        var seasoncode = 202202
 
         if (season != null) {
             switch (season) {
@@ -200,7 +200,7 @@ module.exports = {
                             { name: '플레이 시간', value: PLAYTIME, inline: true },
                         )
 
-                    var SeasonFullName = `2021년 알파 시즌`
+                    var SeasonFullName = `2022년 2월 ~ 4월 시즌`
                     if (SeasonName != null) {
                         switch (SeasonName) {
                             case "ALPHA":
